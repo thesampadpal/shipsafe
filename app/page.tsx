@@ -129,19 +129,29 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const vulnCount = useCountUp(2000, 2500);
   const keysCount = useCountUp(400, 2000);
   const piiCount = useCountUp(175, 1800);
 
+  // Ensure component is mounted before using browser APIs
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Track scroll for header effect
   useEffect(() => {
+    if (!isMounted) return;
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    // Check initial scroll position
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMounted]);
 
   const handleScan = async () => {
     if (!url) return;
@@ -221,17 +231,17 @@ export default function Home() {
 
       {/* Floating Glassmorphism Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled ? "py-2" : "py-4"
+        isMounted && isScrolled ? "py-2" : "py-4"
       }`}>
-        <div className={`max-w-7xl mx-auto px-6 ${isScrolled ? "px-4" : ""}`}>
+        <div className={`max-w-7xl mx-auto px-6 ${isMounted && isScrolled ? "px-4" : ""}`}>
           <div className={`flex items-center justify-between px-6 py-3 rounded-2xl transition-all duration-300 ${
-            isScrolled
+            isMounted && isScrolled
               ? "bg-[#0a0a0a]/70 backdrop-blur-xl border border-[#00d4ff]/10 shadow-lg shadow-[#00d4ff]/5"
               : "bg-transparent"
           }`}
           style={{
-            backdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "none",
-            WebkitBackdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "none",
+            backdropFilter: isMounted && isScrolled ? "blur(20px) saturate(180%)" : "none",
+            WebkitBackdropFilter: isMounted && isScrolled ? "blur(20px) saturate(180%)" : "none",
           }}>
             <a href="#" className="font-mono text-[#00d4ff] text-lg tracking-wider font-bold">
               SHIPSAFE
@@ -247,8 +257,16 @@ export default function Home() {
                 </a>
               ))}
             </div>
-            <div className="font-mono text-xs text-[#00d4ff]/50 border border-[#00d4ff]/20 px-3 py-1 rounded-full">
-              beta
+            <div className="flex items-center gap-3">
+              <span className="hidden sm:inline font-mono text-xs text-[#00d4ff]/50 border border-[#00d4ff]/20 px-2 py-0.5 rounded-full">
+                beta
+              </span>
+              <a
+                href="#cta"
+                className="bg-[#00d4ff] hover:bg-[#00b8e6] text-[#0a0a0a] font-mono text-xs font-bold px-4 py-2 rounded-lg transition-colors"
+              >
+                Get Early Access
+              </a>
             </div>
           </div>
         </div>
@@ -649,7 +667,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-24 border-t border-[#1a1a1a]">
+      <section id="cta" className="py-24 border-t border-[#1a1a1a]">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="space-y-6 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold">
