@@ -728,34 +728,35 @@ export default function Home() {
 
       {/* Results Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur-sm"
-            onClick={() => !isSubmitted && setIsModalOpen(false)}
-          />
-          <div className="relative w-full max-w-lg border border-[#222] bg-[#111] rounded-xl overflow-hidden shadow-2xl animate-in">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-[#222] bg-[#0d0d0d]">
-              <span className="font-mono text-sm text-[#00d4ff]">Security Check Results</span>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="text-[#666] hover:text-[#e0e0e0] transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="min-h-full flex items-center justify-center p-4">
+            <div
+              className="fixed inset-0 bg-[#0a0a0a]/90 backdrop-blur-sm"
+              onClick={() => !isSubmitted && setIsModalOpen(false)}
+            />
+            <div className="relative w-full max-w-lg border border-[#222] bg-[#111] rounded-xl shadow-2xl animate-in">
+              {/* Modal Header */}
+              <div className="sticky top-0 flex items-center justify-between px-5 py-4 border-b border-[#222] bg-[#0d0d0d] rounded-t-xl z-10">
+                <span className="font-mono text-sm text-[#00d4ff]">Security Check Results</span>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-[#666] hover:text-[#e0e0e0] transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-            <div className="p-6">
+              <div className="p-6">
               {!isSubmitted ? (
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {/* Target */}
                   <div className="font-mono text-xs text-[#666]">
                     Target: <span className="text-[#e0e0e0] break-all">{url}</span>
                   </div>
 
-                  {/* Results Summary */}
+                  {/* Results Summary - Always visible */}
                   <div className="grid grid-cols-3 gap-3">
                     <div className="text-center p-3 bg-[#ff5f57]/10 rounded-lg border border-[#ff5f57]/20">
                       <div className="font-mono text-2xl font-bold text-[#ff5f57]">{failCount}</div>
@@ -771,9 +772,70 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Header Results */}
+                  {/* Blurred Preview of Results */}
+                  <div className="relative">
+                    <div className="space-y-2 blur-sm select-none pointer-events-none">
+                      {scanResults.slice(0, 3).map((result, i) => (
+                        <div key={i} className="flex items-start gap-3 p-3 bg-[#0a0a0a] rounded-lg border border-[#222]">
+                          <span className="text-[#ff5f57]">✗</span>
+                          <div className="flex-1">
+                            <div className="font-mono text-sm text-[#e0e0e0]">{result.name}</div>
+                            <div className="text-xs text-[#666]">{result.message}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#111]/50 to-[#111]" />
+                  </div>
+
+                  {/* Email Gate CTA */}
+                  <div className="text-center space-y-4 pt-2">
+                    <div className="space-y-2">
+                      <p className="text-[#e0e0e0] font-medium">
+                        We found <span className="text-[#ff5f57]">{failCount} issues</span> on your site
+                      </p>
+                      <p className="text-[#888] text-sm">
+                        Enter your email to unlock the full report + get notified when auto-fix launches
+                      </p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-3">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@company.com"
+                        className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-4 py-3 font-mono text-sm text-[#e0e0e0] placeholder:text-[#444] focus:outline-none focus:border-[#00d4ff]/50 transition-colors"
+                        autoFocus
+                      />
+                      <button
+                        type="submit"
+                        disabled={!email || isSubmitting}
+                        className="w-full bg-gradient-to-r from-[#00d4ff] to-[#00b8e6] hover:from-[#00b8e6] hover:to-[#0099cc] disabled:from-[#333] disabled:to-[#333] disabled:text-[#666] text-[#0a0a0a] font-bold py-3 px-6 rounded-lg transition-all disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? "Unlocking..." : "Unlock Full Report"}
+                      </button>
+                    </form>
+
+                    <p className="text-xs text-[#666]">
+                      Early access members get priority + special pricing
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-5">
+                  {/* Success message */}
+                  <div className="text-center space-y-3 pb-4 border-b border-[#222]">
+                    <div className="w-12 h-12 mx-auto bg-[#28c840]/10 rounded-full flex items-center justify-center border border-[#28c840]/30">
+                      <span className="text-[#28c840] text-xl">✓</span>
+                    </div>
+                    <p className="text-[#e0e0e0] font-medium">You're on the list!</p>
+                    <p className="text-xs text-[#888]">Here's your full report</p>
+                  </div>
+
+                  {/* Full Results - Unlocked */}
                   <div className="space-y-2">
-                    <div className="font-mono text-xs text-[#666] mb-3">Security Headers Check:</div>
                     {scanResults.map((result, i) => (
                       <div key={i} className="flex items-start gap-3 p-3 bg-[#0a0a0a] rounded-lg border border-[#222]">
                         <span className={`mt-0.5 ${
@@ -791,58 +853,22 @@ export default function Home() {
                     ))}
                   </div>
 
-                  {/* Upgrade CTA */}
-                  <div className="border-t border-[#222] pt-6">
-                    <div className="text-center space-y-4">
-                      <p className="text-[#888] text-sm">
-                        This is just the header check. The full scan finds <span className="text-[#00d4ff] font-medium">exposed API keys</span>,
-                        {" "}<span className="text-[#00d4ff] font-medium">broken RLS</span>, and more — plus{" "}
-                        <span className="text-[#00ff88] font-medium">automatic fixes</span>.
-                      </p>
-
-                      <form onSubmit={handleSubmit} className="space-y-3">
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="you@company.com"
-                          className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-4 py-3 font-mono text-sm text-[#e0e0e0] placeholder:text-[#444] focus:outline-none focus:border-[#00d4ff]/50 transition-colors"
-                          autoFocus
-                        />
-                        <button
-                          type="submit"
-                          disabled={!email || isSubmitting}
-                          className="w-full bg-gradient-to-r from-[#00d4ff] to-[#00b8e6] hover:from-[#00b8e6] hover:to-[#0099cc] disabled:from-[#333] disabled:to-[#333] disabled:text-[#666] text-[#0a0a0a] font-bold py-3 px-6 rounded-lg transition-all disabled:cursor-not-allowed"
-                        >
-                          {isSubmitting ? "Joining..." : "Get Full Scan + Auto-Fix"}
-                        </button>
-                      </form>
-
-                      <p className="text-xs text-[#666]">
-                        Join waitlist for full scanner with automatic vulnerability fixes
-                      </p>
-                    </div>
+                  {/* Coming soon note */}
+                  <div className="text-center pt-2 border-t border-[#222]">
+                    <p className="text-xs text-[#888]">
+                      Full scan + auto-fix coming soon. We'll email you when it's ready.
+                    </p>
+                    <button
+                      onClick={() => setIsModalOpen(false)}
+                      className="text-sm text-[#00d4ff] hover:underline mt-3"
+                    >
+                      Close
+                    </button>
                   </div>
-                </div>
-              ) : (
-                <div className="text-center py-8 space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-[#28c840]/10 rounded-full flex items-center justify-center border border-[#28c840]/30">
-                    <span className="text-[#28c840] text-3xl">✓</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-[#e0e0e0]">You're on the list!</h3>
-                  <p className="text-[#888] max-w-sm mx-auto">
-                    We'll notify you when the full scanner with auto-fix is ready.
-                    Early access members get priority + special pricing.
-                  </p>
-                  <button
-                    onClick={() => setIsModalOpen(false)}
-                    className="text-sm text-[#00d4ff] hover:underline mt-4"
-                  >
-                    Close
-                  </button>
                 </div>
               )}
             </div>
+          </div>
           </div>
         </div>
       )}
