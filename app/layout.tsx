@@ -34,21 +34,12 @@ export const metadata: Metadata = {
     description:
       "Find exposed API keys before attackers do. Free security scan for vibe-coded apps.",
     type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Seclure - Security Scanner for AI-Built Apps",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Seclure — Security Scanner for AI-Built Apps",
     description:
       "Find exposed API keys before attackers do. Free security scan for vibe-coded apps.",
-    images: ["/og-image.png"],
   },
 };
 
