@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
         method: "HEAD",
         signal: controller.signal,
         headers: {
-          "User-Agent": "ShipSafe-Scanner/1.0",
+          "User-Agent": "Seclure-Scanner/1.0",
         },
         redirect: "follow",
       });
@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
           method: "GET",
           signal: controller.signal,
           headers: {
-            "User-Agent": "ShipSafe-Scanner/1.0",
+            "User-Agent": "Seclure-Scanner/1.0",
           },
           redirect: "follow",
         });

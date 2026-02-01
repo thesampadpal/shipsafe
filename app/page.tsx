@@ -244,7 +244,7 @@ export default function Home() {
             WebkitBackdropFilter: isMounted && isScrolled ? "blur(20px) saturate(180%)" : "none",
           }}>
             <a href="#" className="font-mono text-[#00d4ff] text-lg tracking-wider font-bold">
-              SHIPSAFE
+              SECLURE
             </a>
             <div className="hidden md:flex items-center gap-8">
               {["THE_PROBLEM", "THE_FIX", "HOW_IT_WORKS"].map((item) => (
@@ -334,7 +334,7 @@ export default function Home() {
                     <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
                     <div className="w-3 h-3 rounded-full bg-[#28c840]" />
                   </div>
-                  <span className="font-mono text-xs text-[#666] tracking-wider">shipsafe_scanner</span>
+                  <span className="font-mono text-xs text-[#666] tracking-wider">seclure_scanner</span>
                   <div className="w-16" />
                 </div>
 
@@ -494,7 +494,7 @@ export default function Home() {
               Stop finding problems. <span className="text-[#00d4ff]">Start fixing them.</span>
             </h2>
             <p className="text-[#666] max-w-2xl">
-              Other tools tell you what's wrong. ShipSafe fixes it.
+              Other tools tell you what's wrong. Seclure fixes it.
               One click to secure, with explanations so you learn along the way.
             </p>
           </div>
@@ -519,7 +519,7 @@ export default function Home() {
           {/* Before/After */}
           <div className="mt-16 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <div className="border border-[#ff5f57]/30 bg-[#ff5f57]/5 rounded-lg p-6">
-              <div className="font-mono text-xs text-[#ff5f57] mb-4">WITHOUT SHIPSAFE</div>
+              <div className="font-mono text-xs text-[#ff5f57] mb-4">WITHOUT SECLURE</div>
               <ul className="space-y-2 text-[#888]">
                 <li className="flex items-start gap-2">
                   <span className="text-[#ff5f57]">✗</span>
@@ -540,7 +540,7 @@ export default function Home() {
               </ul>
             </div>
             <div className="border border-[#00d4ff]/30 bg-[#00d4ff]/5 rounded-lg p-6">
-              <div className="font-mono text-xs text-[#00d4ff] mb-4">WITH SHIPSAFE</div>
+              <div className="font-mono text-xs text-[#00d4ff] mb-4">WITH SECLURE</div>
               <ul className="space-y-2 text-[#888]">
                 <li className="flex items-start gap-2">
                   <span className="text-[#00ff88]">✓</span>
@@ -712,7 +712,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="font-mono text-sm text-[#666]">
-              ShipSafe — Security for vibe coders
+              Seclure — Security for vibe coders
             </div>
             <div className="flex items-center gap-6">
               <a href="#" className="text-sm text-[#666] hover:text-[#00d4ff] transition-colors">

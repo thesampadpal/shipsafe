@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ShipSafe — Security Scanner for AI-Built Apps",
+  title: "Seclure — Security Scanner for AI-Built Apps",
   description:
     "Free security scan for apps built with Cursor, Lovable, Bolt, and Replit. Find exposed API keys, broken RLS, and missing security headers in 60 seconds.",
   keywords: [
@@ -27,16 +27,16 @@ export const metadata: Metadata = {
     "supabase security",
     "indie hacker security",
   ],
-  authors: [{ name: "ShipSafe" }],
+  authors: [{ name: "Seclure" }],
   openGraph: {
-    title: "ShipSafe — Security Scanner for AI-Built Apps",
+    title: "Seclure — Security Scanner for AI-Built Apps",
     description:
       "Find exposed API keys before attackers do. Free security scan for vibe-coded apps.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ShipSafe — Security Scanner for AI-Built Apps",
+    title: "Seclure — Security Scanner for AI-Built Apps",
     description:
       "Find exposed API keys before attackers do. Free security scan for vibe-coded apps.",
   },
