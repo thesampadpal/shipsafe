@@ -250,7 +250,7 @@ export default function Home() {
               {["THE_PROBLEM", "THE_FIX", "HOW_IT_WORKS"].map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase().replace("_", "-")}`}
+                  href={`#${item.toLowerCase().replaceAll("_", "-")}`}
                   className="font-mono text-sm text-[#888] hover:text-[#00d4ff] transition-colors tracking-wide"
                 >
                   {item}
