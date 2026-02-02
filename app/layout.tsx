@@ -13,11 +13,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Seclure — Security Scanner for AI-Built Apps",
+  title: "Seclure — Security for Vibe Coders",
   description:
-    "Free security scan for apps built with Cursor, Lovable, Bolt, and Replit. Find exposed API keys, broken RLS, and missing security headers in 60 seconds.",
+    "We don't just find security holes. We fix them. Auto-fix vulnerabilities in apps built with Cursor, Lovable, Bolt, and Replit.",
   keywords: [
-    "security scanner",
+    "security",
     "vibe coding",
     "cursor",
     "lovable",
@@ -30,16 +30,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Seclure" }],
   metadataBase: new URL("https://seclure.vercel.app"),
   openGraph: {
-    title: "Seclure — Security Scanner for AI-Built Apps",
+    title: "Seclure — Security for Vibe Coders",
     description:
-      "Find exposed API keys before attackers do. Free security scan for vibe-coded apps.",
+      "We don't just find security holes. We fix them. Ship secure, ship fast.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Seclure — Security Scanner for AI-Built Apps",
+    title: "Seclure — Security for Vibe Coders",
     description:
-      "Find exposed API keys before attackers do. Free security scan for vibe-coded apps.",
+      "We don't just find security holes. We fix them. Ship secure, ship fast.",
   },
 };
 

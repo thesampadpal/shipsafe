@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "Seclure - Security Scanner for AI-Built Apps";
+export const alt = "Seclure - Security for Vibe Coders";
 export const size = {
   width: 1200,
   height: 630,
