@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,11 +13,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For now, log to console (replace with Supabase when ready)
+    const timestamp = new Date().toISOString();
+
+    // Log to console
     console.log("New waitlist signup:", {
       email,
       url: url || null,
-      timestamp: new Date().toISOString(),
+      timestamp,
     });
 
     // If Supabase is configured, save to database
@@ -35,11 +38,30 @@ export async function POST(request: NextRequest) {
 
         if (error) {
           console.error("Supabase error:", error);
-          // Don't fail the request if Supabase fails
         }
       } catch (supabaseError) {
         console.error("Supabase connection error:", supabaseError);
-        // Continue anyway - we logged it to console
+      }
+    }
+
+    // Send email notification if Resend is configured
+    if (process.env.RESEND_API_KEY && process.env.NOTIFICATION_EMAIL) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+
+        await resend.emails.send({
+          from: "Seclure <onboarding@resend.dev>",
+          to: process.env.NOTIFICATION_EMAIL,
+          subject: `New Seclure Signup: ${email}`,
+          html: `
+            <h2>New Waitlist Signup!</h2>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Scanned URL:</strong> ${url || "Not provided"}</p>
+            <p><strong>Time:</strong> ${timestamp}</p>
+          `,
+        });
+      } catch (emailError) {
+        console.error("Email notification error:", emailError);
       }
     }
 
